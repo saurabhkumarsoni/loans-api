@@ -1,0 +1,43 @@
+###get api 
+GET http://localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTM3NTkzNDAsImV4cCI6MTY5Mzc1OTM2NSwiYXVkIjoiNjRmNDY0YTJkZmE3YjkxYzZiNmQyN2UwIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.kyi_y7D-HxEgNBZdUfo3Q5OKe5DULTEHFjZ04U5mmlc
+### login Route
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "new.soni@gmail.com",
+    "password": "123123"
+}
+
+### Register Route
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "new.soni@gmail.com",
+    "password": "123123"
+}
+
+### Refresh Route
+POST http://localhost:3000/auth/refresh-token
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTM3NTkyNDYsImV4cCI6MTcyNTMxNjg0NiwiYXVkIjoiNjRmNDY0YTJkZmE3YjkxYzZiNmQyN2UwIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.JYB7gUGrCDqACe41_nCZjdZi872JAWc6T7G7GFY2Khs"
+}
+
+
+### Logout Route
+DELETE http://localhost:3000/auth/logout
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTM3NTk5MjIsImV4cCI6MTcyNTMxNzUyMiwiYXVkIjoiNjRmNDY0YTJkZmE3YjkxYzZiNmQyN2UwIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.xQx3gWwTnaNcnLs7KtzzKhQJYV8vT43O7hmCq3dl5qU"
+}
+
+###customers
+GET http://localhost:3000/customers
+Content-Type: : application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTM5MzM5NDEsImV4cCI6MTY5MzkzNzU0MSwiYXVkIjoiNjRmNzYwMGVhZjBkYjEzYjY2MDY5YWE0IiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.VZxvBEZ5qcgeoLW7i7H8R49hcFI5hpiK3RszkjrS8VE
+

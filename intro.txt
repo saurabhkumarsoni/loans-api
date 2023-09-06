@@ -1,0 +1,13 @@
+
+
+nodeJs - used as backend server
+MongoDB - NoSQL database - for storing users
+Redis - In-memory data structure - used for storing refresh token 
+JWT - Token used as access token and as refresh token also
+
+                TOKEN FLOW
+
+    
+
+    
+
