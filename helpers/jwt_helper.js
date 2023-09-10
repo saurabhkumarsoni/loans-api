@@ -7,7 +7,7 @@ module.exports = {
       const payload = {};
       const secret = process.env.ACCESS_TOKEN_SECRET;
       const option = {
-        expiresIn: "1h",
+        expiresIn: "1y",
         issuer: "google.com",
         audience: userId,
       };
@@ -28,9 +28,11 @@ module.exports = {
     const bearerToken = authHeader.split(" ");
     const token = bearerToken[1];
     JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, payload) => {
-      const message =
-        error.name === "JsonWebTokenError" ? "Unauthorized" : error.message;
-      return next(createError.Unauthorized(message));
+      console.log("Error:",error)
+      if(error!=null){
+        const message = error.name === "JsonWebTokenError" ? "Unauthorized" : error.message;
+        return next(createError.Unauthorized(message));
+      }
       req.payload = payload;
       next();
     });
@@ -54,23 +56,22 @@ module.exports = {
       });
     });
   },
-
+  
   verifyRefreshToken: (refreshToken) => {
-    console.log('refreshTokenq1111111111111111', refreshToken)
+    console.log('refreshToken:', refreshToken);
+  
     return new Promise((resolve, reject) => {
-      JWT.verify(
-        refreshToken,
-        process.env.REFRESH_TOKEN_SECRET,
-        (error, payload) => {
-          if (error){
-            console.error("JWT verification error:", error); 
-             return reject(createError.Unauthorized());
-          }
+      JWT.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (error, payload) => {
+        if (error) {
+          console.error('JWT verification failed:', error);
+          // You can customize the error response as needed.
+          reject(createError.Unauthorized('Invalid refresh token'));
+        } else {
           const userId = payload.aud;
-
           resolve(userId);
         }
-      );
+      });
     });
   },
+  
 };

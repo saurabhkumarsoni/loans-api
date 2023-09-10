@@ -57,8 +57,8 @@ module.exports = {
           const userId = await verifyRefreshToken(refreshToken);
       
           const accessToken = await signAccessToken(userId);
-          const newRefreshToken = await signRefreshToken(userId);
-          res.send({accessToken, newRefreshToken });
+          const refToken = await signRefreshToken(userId);
+          res.send({accessToken, refToken });
         } catch (error) {
           next(error);
         }

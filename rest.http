@@ -1,12 +1,13 @@
 ###get api 
 GET http://localhost:3000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTM3NTkzNDAsImV4cCI6MTY5Mzc1OTM2NSwiYXVkIjoiNjRmNDY0YTJkZmE3YjkxYzZiNmQyN2UwIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.kyi_y7D-HxEgNBZdUfo3Q5OKe5DULTEHFjZ04U5mmlc
+Authorization: Bearere eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQzMzIzOTIsImV4cCI6MTcyNTg4OTk5MiwiYXVkIjoiNjRmYWM0ZDE0NTZjMWU4NjU3YWVhZjQxIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.alKhXbin8VAr2D4lHX0OzqdKqejdP5XlbrKX8FSRLbE
+
 ### login Route
 POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "new.soni@gmail.com",
+    "email": "new@gmail.com",
     "password": "123123"
 }
 
@@ -15,7 +16,7 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "email": "new.soni@gmail.com",
+    "email": "new@gmail.com",
     "password": "123123"
 }
 
@@ -24,7 +25,7 @@ POST http://localhost:3000/auth/refresh-token
 Content-Type: application/json
 
 {
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTM3NTkyNDYsImV4cCI6MTcyNTMxNjg0NiwiYXVkIjoiNjRmNDY0YTJkZmE3YjkxYzZiNmQyN2UwIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.JYB7gUGrCDqACe41_nCZjdZi872JAWc6T7G7GFY2Khs"
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQzMzE1MDksImV4cCI6MTcyNTg4OTEwOSwiYXVkIjoiNjRmYWM0ZDE0NTZjMWU4NjU3YWVhZjQxIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.CKqZAHQogbQV9yHpSDsVRTmt41MO7SYE8G6ofTyNyvI"
 }
 
 
@@ -36,8 +37,91 @@ Content-Type: application/json
     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTM3NTk5MjIsImV4cCI6MTcyNTMxNzUyMiwiYXVkIjoiNjRmNDY0YTJkZmE3YjkxYzZiNmQyN2UwIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.xQx3gWwTnaNcnLs7KtzzKhQJYV8vT43O7hmCq3dl5qU"
 }
 
-###customers
-GET http://localhost:3000/customers
-Content-Type: : application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTM5MzM5NDEsImV4cCI6MTY5MzkzNzU0MSwiYXVkIjoiNjRmNzYwMGVhZjBkYjEzYjY2MDY5YWE0IiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.VZxvBEZ5qcgeoLW7i7H8R49hcFI5hpiK3RszkjrS8VE
+###  CREATE PRODUCT
+POST http://localhost:3000/product
+Content-Type: application/json
 
+ {
+    "name": "sikha Gupta",
+    "price": "45000",
+    "description": "good",
+    "category":"mobile" ,
+    "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+
+  }
+
+###  PRODUCT LIST
+GET http://localhost:3000/product
+Content-Type: : application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQxNjk1MjgsImV4cCI6MTY5NDE4MDMyOCwiYXVkIjoiNjRmYWM0ZDE0NTZjMWU4NjU3YWVhZjQxIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.nx2OVm2_tXhrwKnTMq7yHQk_8SafUmZvu8HhYcNzKJo
+
+### FIND PRODUCT BY ID
+GET  http://localhost:3000/product/64fc14d349c7f6472a35e8b1
+Content-Type: application/json
+
+
+### DELETE PRODUCT BY ID
+DELETE http://localhost:3000/product/64fc14d349c7f6472a35e8b1
+Content-Type: application/json
+
+
+### UPDATE PRODUCT
+PATCH http://localhost:3000/product/64fb173d8abb9ad6e020a661
+Content-Type: application/json
+
+{
+  "name": "Iphone",
+  "price": "450000"
+}
+
+
+### CREATE CUSTOMER
+POST http://localhost:3000/customers
+Authorization: Bearere eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQyNTUzMzIsImV4cCI6MTY5NDI2NjEzMiwiYXVkIjoiNjRmYWM0ZDE0NTZjMWU4NjU3YWVhZjQxIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.yENBbLpM9Bcc-xhThu1X3UZfoNgX7geuJuhu6pWD7J4
+Content-Type: application/json
+
+  {
+    "name": "Saurabh Kumar",
+    "username": "Bret",
+    "email": "Sincere@april.biz",
+    "address": {
+      "street": "Kulas Light",
+      "suite": "Apt. 556",
+      "city": "Gwenborough",
+      "zipcode": "92998-3874",
+      "geo": {
+        "lat": "-37.3159",
+        "lng": "81.1496"
+      }
+    },
+    "phone": "1-770-736-8031 x56442",
+    "website": "hildegard.org",
+    "company": {
+      "name": "Romaguera-Crona",
+      "address": "Multi-layered client-server neural-net"
+    }
+}
+
+
+### LIST CUSTOMER
+GET http://localhost:3000/customers
+Authorization: Bearere eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQzMzIzOTIsImV4cCI6MTcyNTg4OTk5MiwiYXVkIjoiNjRmYWM0ZDE0NTZjMWU4NjU3YWVhZjQxIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.alKhXbin8VAr2D4lHX0OzqdKqejdP5XlbrKX8FSRLbE
+
+
+### FIND CUSTOMER BY ID
+GET http://localhost:3000/customers/64fc4081b25539672165fdcf
+Content-Type: application/json
+
+
+### DELETE CUSTOMER
+DELETE  http://localhost:3000/customers/64fc40d96ae8034a63a50a06
+Content-Type: application/json
+
+### UPDATE CUSTOMER
+PATCH http://localhost:3000/customers/64fc4081b25539672165fdcf
+Content-Type: application/json
+
+{
+  "name": "saurabh kumar soni",
+  "email": "saurabh@gmail.com"
+}
