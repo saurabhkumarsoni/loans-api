@@ -4,33 +4,26 @@ const createError  = require('http-errors');
 require('dotenv').config();
 require('./helpers/init_mongodb');
 const {verifyAccessToken, verifyRefreshToken} = require('./helpers/jwt_helper');
-
+const { roles } = require("./helpers/constant");
 const mongoose = require('mongoose');
 
-const CustomersRoutes = require('./Routes/Customers.route');
-const ProductRoutes = require('./Routes/Product.route');
-const AuthRoutes = require('./Routes/Auth.route');
-const indexRoutes = require('./Routes/index');
-const usersRoutes = require('./Routes/users');
-const loansRoutes = require('./Routes/loans');
-const paymentsRoutes = require('./Routes/payments');
-const invoicesRoutes = require('./Routes/invoices');
-const settingsRoutes = require('./Routes/settings');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(morgan('dev'));
+
 
 app.get('/', verifyAccessToken, async (req, res, next) =>{
     res.send('get api called');
 })
 
-app.use('/auth', AuthRoutes);
-app.use('/customers', CustomersRoutes);
-app.use('/product', ProductRoutes);
+app.use('/users', require('./Routes/Auth.route'));
+app.use('/customers', require('./Routes/Customers.route'));
+app.use('/product', require('./Routes/Product.route'));
+app.use('/movie', require('./Routes/Movie.route'));
 
 
 app.use(async(req, res, next) =>{

@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "start_prod": ""
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "mongoose": "^7.5.0",
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1",
-    "redis": "^4.6.8"
+    "redis": "^4.6.8",
+    "validator": "^13.11.0"
   }
 }

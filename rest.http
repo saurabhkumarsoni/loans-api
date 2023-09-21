@@ -1,27 +1,29 @@
 ###get api 
 GET http://localhost:3000
-Authorization: Bearere eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQzMzIzOTIsImV4cCI6MTcyNTg4OTk5MiwiYXVkIjoiNjRmYWM0ZDE0NTZjMWU4NjU3YWVhZjQxIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.alKhXbin8VAr2D4lHX0OzqdKqejdP5XlbrKX8FSRLbE
+Authorization: Bearere eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQ4NjA1ODksImV4cCI6MTcyNjQxODE4OSwiYXVkIjoiNjUwNTU3YjdkYzQ0Y2YxM2VhODQ2MzUzIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.aOMjWrSLDRr0KIl49vG8choGCgu9Wn6yiR4iM278N0U
 
 ### login Route
-POST http://localhost:3000/auth/login
+POST http://localhost:3000/users/login
 Content-Type: application/json
 
 {
-    "email": "new@gmail.com",
-    "password": "123123"
+    "email": "saurabh@gmail.com",
+    "password": "saurabh"
 }
 
 ### Register Route
-POST http://localhost:3000/auth/register
+POST http://localhost:3000/users/register
 Content-Type: application/json
 
-{
-    "email": "new@gmail.com",
-    "password": "123123"
+{   "name":"Sonali",
+    "email": "i11@gmail.com",
+    "password": "saurabh",
+    "confirmPassword": "saurabh",
+    "photo": "https://api.slingacademy.com/public/sample-photos/1.jpeg"
 }
 
 ### Refresh Route
-POST http://localhost:3000/auth/refresh-token
+POST http://localhost:3000/users/refresh-token
 Content-Type: application/json
 
 {
@@ -30,7 +32,7 @@ Content-Type: application/json
 
 
 ### Logout Route
-DELETE http://localhost:3000/auth/logout
+DELETE http://localhost:3000/users/logout
 Content-Type: application/json
 
 {
@@ -77,7 +79,7 @@ Content-Type: application/json
 
 ### CREATE CUSTOMER
 POST http://localhost:3000/customers
-Authorization: Bearere eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQyNTUzMzIsImV4cCI6MTY5NDI2NjEzMiwiYXVkIjoiNjRmYWM0ZDE0NTZjMWU4NjU3YWVhZjQxIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.yENBbLpM9Bcc-xhThu1X3UZfoNgX7geuJuhu6pWD7J4
+Authorization: Bearere eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQ4NDg5NTUsImV4cCI6MTcyNjQwNjU1NSwiYXVkIjoiNjUwNTU3YjdkYzQ0Y2YxM2VhODQ2MzUzIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.CfQUmnvVSSQndKQWTyXIdy6XTTmY_FkGBZ5QVYfROG0
 Content-Type: application/json
 
   {
@@ -125,3 +127,77 @@ Content-Type: application/json
   "name": "saurabh kumar soni",
   "email": "saurabh@gmail.com"
 }
+
+### add moview
+POST http://localhost:3000/movie
+Authorization: Bearere eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTUxNDY2MDIsImV4cCI6MTY5NTE0NjYyMiwiYXVkIjoiNjUwOWRmOTBmNTcxOGIyZDcxOWNkNWQ4IiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.5VKG7qwWvH8_sIz0iULjtexv32Xma-oWsRLlazo3aEA
+Content-Type: application/json
+
+{
+      "name":"sample movie 3",
+      "description":"An iconic Bollywood action film",
+      "runtime":304,
+      "director": "Saurabh Soni",
+      "actors": "Dharmendra, Amitabh Bachchan, Hema Malini, Jaya Bhaduri",
+      "posterUrl": "https://images-na.ssl-images-amazon.com/images/M/MV5BYzdiZTU3NGUtZmNkYi00Y2EwLWEwYjAtNjk4ZTBlOTVhYTU2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
+      "releaseYear":2023,
+      "ratings": 5,
+      "totalRatings":5123,
+      "releaseDate":"2023-10-21",
+      "genres":[
+         "Action",
+         "Adventure",
+         "Drama"
+      ],
+      "price":700
+   }
+
+### get movie list
+GET  http://localhost:3000/movie
+Authorization: Bearere eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTUyMDU3NzYsImV4cCI6MTcyNjc2MzM3NiwiYXVkIjoiNjUwYWJlMGRjMmRmNDcyMDE0Y2NhYjMyIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.KLw2_Dd5q3oqiaa3cje1mtq4l3pTnTNqAfsJNjCb4Yc
+Content-Type: application/json
+
+
+### filter movie list
+
+GET  http://localhost:3000/movie/?runtime[gte]=150&ratings[gte]=4.6&limit=2
+Authorization: Bearere eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQ4NDg5NTUsImV4cCI6MTcyNjQwNjU1NSwiYXVkIjoiNjUwNTU3YjdkYzQ0Y2YxM2VhODQ2MzUzIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.CfQUmnvVSSQndKQWTyXIdy6XTTmY_FkGBZ5QVYfROG0
+Content-Type: application/json
+
+
+### sort movie list
+GET  http://localhost:3000/movie/?sort=releaseYear,ratings
+Authorization: Bearere eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQ4NDg5NTUsImV4cCI6MTcyNjQwNjU1NSwiYXVkIjoiNjUwNTU3YjdkYzQ0Y2YxM2VhODQ2MzUzIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.CfQUmnvVSSQndKQWTyXIdy6XTTmY_FkGBZ5QVYfROG0
+Content-Type: application/json
+
+
+###limiting the fields
+GET  http://localhost:3000/movie/?fields=name,runtime,releaseYear,ratings
+Authorization: Bearere eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQ4NDg5NTUsImV4cCI6MTcyNjQwNjU1NSwiYXVkIjoiNjUwNTU3YjdkYzQ0Y2YxM2VhODQ2MzUzIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.CfQUmnvVSSQndKQWTyXIdy6XTTmY_FkGBZ5QVYfROG0
+Content-Type: application/json
+
+
+### pagination and limit number
+GET  http://localhost:3000/movie/?page=4&limit=10
+Authorization: Bearere eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQ4NDg5NTUsImV4cCI6MTcyNjQwNjU1NSwiYXVkIjoiNjUwNTU3YjdkYzQ0Y2YxM2VhODQ2MzUzIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.CfQUmnvVSSQndKQWTyXIdy6XTTmY_FkGBZ5QVYfROG0
+Content-Type: application/json
+
+### use all in one
+GET  http://localhost:3000/movie/?limit=5&sort=-runtime
+Authorization: Bearere eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQ4NDg5NTUsImV4cCI6MTcyNjQwNjU1NSwiYXVkIjoiNjUwNTU3YjdkYzQ0Y2YxM2VhODQ2MzUzIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.CfQUmnvVSSQndKQWTyXIdy6XTTmY_FkGBZ5QVYfROG0
+Content-Type: application/json
+
+#### highest rated
+GET  http://localhost:3000/movie/highest-rated
+Authorization: Bearere eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQ4NDg5NTUsImV4cCI6MTcyNjQwNjU1NSwiYXVkIjoiNjUwNTU3YjdkYzQ0Y2YxM2VhODQ2MzUzIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.CfQUmnvVSSQndKQWTyXIdy6XTTmY_FkGBZ5QVYfROG0
+Content-Type: application/json
+
+#### DELETE MOVIE IF HAVING ADMIN PERMISSION
+DELETE   http://localhost:3000/movie/65099bccc5d64b931b34323f
+Authorization: Bearere eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTUxOTM4OTQsImV4cCI6MTY5NTE5NzQ5NCwiYXVkIjoiNjUwYTliMWIzOWUzZDlhZjg4MTU1MzQ0IiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.pJpPFixtbvz-cIlpRHvakS0n8WNjyEU7tpSFIGbbX6c
+Content-Type: application/json
+
+### find by id
+GET http://localhost:3000/movie/65099a72d7e74abaa1ecab15
+Authorization: Bearere eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQ4NDg5NTUsImV4cCI6MTcyNjQwNjU1NSwiYXVkIjoiNjUwNTU3YjdkYzQ0Y2YxM2VhODQ2MzUzIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.CfQUmnvVSSQndKQWTyXIdy6XTTmY_FkGBZ5QVYfROG0
+Content-Type: application/json

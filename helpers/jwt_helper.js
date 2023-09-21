@@ -1,30 +1,32 @@
 const JWT = require("jsonwebtoken");
 const createError = require("http-errors");
+const {roles} = require('../helpers/constant');
 
 module.exports = {
-  signAccessToken: (userId) => {
+  signAccessToken: (userId, role) => {
     return new Promise((resolve, reject) => {
-      const payload = {};
+      const payload = { role }; // Include the user's role in the payload
       const secret = process.env.ACCESS_TOKEN_SECRET;
       const option = {
-        expiresIn: "1y",
+        expiresIn: "1h",
         issuer: "google.com",
         audience: userId,
       };
       JWT.sign(payload, secret, option, async (error, token) => {
         if (error) {
           console.log(error);
-          // reject(error);
           reject(createError.InternalServerError());
         }
         resolve(token);
       });
     });
   },
+  
 
   verifyAccessToken: (req, res, next) => {
     if (!req.headers["authorization"]) return next(createError.Unauthorized());
     const authHeader = req.headers["authorization"];
+    console.log('auth header', authHeader)
     const bearerToken = authHeader.split(" ");
     const token = bearerToken[1];
     JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, payload) => {
@@ -73,5 +75,13 @@ module.exports = {
       });
     });
   },
+
+checkAdminRole: (req, res, next) => {
+  console.log('request................', req.user)
+    if (req.user.role !== roles.admin) {
+      return res.status(403).json({ message: 'Permission denied' });
+    }
+    next();
+  }
   
 };
