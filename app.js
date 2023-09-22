@@ -4,8 +4,12 @@ const createError  = require('http-errors');
 require('dotenv').config();
 require('./helpers/init_mongodb');
 const {verifyAccessToken, verifyRefreshToken} = require('./helpers/jwt_helper');
-const { roles } = require("./helpers/constant");
+const client = require('./helpers/init_redis');
+// const { roles } = require("./helpers/constant");
 const mongoose = require('mongoose');
+// require('./helpers/check_role');
+
+client.SET('foo', 'bar')
 
 
 const app = express();

@@ -1,87 +1,90 @@
-const JWT = require("jsonwebtoken");
-const createError = require("http-errors");
-const {roles} = require('../helpers/constant');
+const JWT = require('jsonwebtoken')
+const createError = require('http-errors')
+const client = require('../helpers/init_redis')
 
 module.exports = {
   signAccessToken: (userId, role) => {
     return new Promise((resolve, reject) => {
-      const payload = { role }; // Include the user's role in the payload
+      const payload = { role }; // Include the role in the payload
       const secret = process.env.ACCESS_TOKEN_SECRET;
-      const option = {
-        expiresIn: "1h",
-        issuer: "google.com",
+      const options = {
+        expiresIn: '1h',
+        issuer: 'pickurpage.com',
         audience: userId,
       };
-      JWT.sign(payload, secret, option, async (error, token) => {
-        if (error) {
-          console.log(error);
+      JWT.sign(payload, secret, options, async(err, token) => {
+        if (err) {
+          console.log(err.message);
           reject(createError.InternalServerError());
+          return;
         }
         resolve(token);
       });
     });
   },
   
-
   verifyAccessToken: (req, res, next) => {
-    if (!req.headers["authorization"]) return next(createError.Unauthorized());
-    const authHeader = req.headers["authorization"];
-    console.log('auth header', authHeader)
-    const bearerToken = authHeader.split(" ");
-    const token = bearerToken[1];
-    JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, payload) => {
-      console.log("Error:",error)
-      if(error!=null){
-        const message = error.name === "JsonWebTokenError" ? "Unauthorized" : error.message;
-        return next(createError.Unauthorized(message));
+    if (!req.headers['authorization']) return next(createError.Unauthorized())
+    const authHeader = req.headers['authorization']
+    const bearerToken = authHeader.split(' ')
+    const token = bearerToken[1]
+    JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
+      if (err) {
+        const message =
+          err.name === 'JsonWebTokenError' ? 'Unauthorized' : err.message
+        return next(createError.Unauthorized(message))
       }
-      req.payload = payload;
-      next();
-    });
+      req.payload = payload
+      next()
+    })
   },
-
-  signRefreshToken: (userId) => {
+  signRefreshToken: (userId, role) => {
     return new Promise((resolve, reject) => {
-      const payload = {};
-      const secret = process.env.REFRESH_TOKEN_SECRET;
-      const option = {
-        expiresIn: "1y",
-        issuer: "google.com",
+      const payload = {role}
+      const secret = process.env.REFRESH_TOKEN_SECRET
+      const options = {
+        expiresIn: '1y',
+        issuer: 'pickurpage.com',
         audience: userId,
-      };
-      JWT.sign(payload, secret, option, async (error, token) => {
-        if (error) {
-          console.log(error);
-          reject(createError.InternalServerError());
+      }
+      JWT.sign(payload, secret, options, (err, token) => {
+        if (err) {
+          console.log(err.message)
+          // reject(err)
+          reject(createError.InternalServerError())
         }
-        resolve(token);
-      });
-    });
-  },
-  
-  verifyRefreshToken: (refreshToken) => {
-    console.log('refreshToken:', refreshToken);
-  
-    return new Promise((resolve, reject) => {
-      JWT.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (error, payload) => {
-        if (error) {
-          console.error('JWT verification failed:', error);
-          // You can customize the error response as needed.
-          reject(createError.Unauthorized('Invalid refresh token'));
-        } else {
-          const userId = payload.aud;
-          resolve(userId);
-        }
-      });
-    });
-  },
 
-checkAdminRole: (req, res, next) => {
-  console.log('request................', req.user)
-    if (req.user.role !== roles.admin) {
-      return res.status(403).json({ message: 'Permission denied' });
-    }
-    next();
-  }
-  
-};
+        client.SET(userId, token, 'EX', 365 * 24 * 60 * 60, (err, reply) => {
+          if (err) {
+            console.log(err.message)
+            reject(createError.InternalServerError())
+            return
+          }
+          resolve(token)
+        })
+      })
+    })
+  },
+  verifyRefreshToken: (refreshToken) => {
+    return new Promise((resolve, reject) => {
+      JWT.verify(
+        refreshToken,
+        process.env.REFRESH_TOKEN_SECRET,
+        (err, payload) => {
+          if (err) return reject(createError.Unauthorized())
+          const userId = payload.aud;
+        const role = payload.role;
+          client.GET(userId, role, (err, result) => {
+            if (err) {
+              console.log(err.message)
+              reject(createError.InternalServerError())
+              return
+            }
+            if (refreshToken === result) return resolve(userId)
+            reject(createError.Unauthorized())
+          })
+        }
+      )
+    })
+  },
+}

@@ -1,5 +1,5 @@
 const Joi = require("@hapi/joi");
-const { roles } = require("../helpers/constant");
+const userRoles = require("./userRoles");
 
 const authSchema = Joi.object({
   name: Joi.string().required(),
@@ -14,9 +14,9 @@ const authSchema = Joi.object({
   role: Joi.string(),
   role: {
     type: String,
-    enum: [roles.admin, roles.moderator, roles.client, roles.user],
-    default: roles.user,
-  },
+    enum: [userRoles.admin, userRoles.client, userRoles.superAdmin, userRoles.user],
+    default: userRoles.user,
+  }
 });
 
 const loginSchema = Joi.object({

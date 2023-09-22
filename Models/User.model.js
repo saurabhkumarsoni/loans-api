@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 const Joi = require("@hapi/joi");
-const { roles } = require("../helpers/constant");
+const userRoles = require("../helpers/userRoles");
 
 const UserSchema = new Schema({
   name: Joi.string().required(),
@@ -16,8 +16,8 @@ const UserSchema = new Schema({
   photo: Joi.string(),
   role: {
     type: String,
-    enum: [roles.admin, roles.moderator, roles.client, roles.user],
-    default: roles.user,
+    enum: [userRoles.admin, userRoles.client, userRoles.superAdmin, userRoles.user],
+    default: userRoles.user,
   }
 });
 
@@ -28,6 +28,7 @@ UserSchema.pre("save", async function (next) {
     this.password = hashedPassword;
 
     this.confirmPassword = undefined;
+    
     if (this.email === process.env.ADMIN_EMAIL.toLowerCase()) {
       this.role = roles.admin;
     }
