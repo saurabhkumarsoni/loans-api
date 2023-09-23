@@ -1,4 +1,4 @@
-const express = require("express");
+const JWT = require('jsonwebtoken')
 const createError = require("http-errors");
 const User = require("../Models/User.model");
 const { authSchema, loginSchema } = require("../helpers/validation_schema");
@@ -20,7 +20,6 @@ module.exports = {
         );
 
       const user = new User(result);
-      console.log("users inside register method", user);
       const savedUser = await user.save();
       const accessToken = await signAccessToken(savedUser.id, savedUser.role);
       const refreshToken = await signRefreshToken(savedUser.id, savedUser.role);
@@ -58,11 +57,12 @@ module.exports = {
     try {
       const { refreshToken } = req.body;
       console.log("Received refreshToken:", refreshToken);
+      const userRole = JWT.decode(refreshToken).role;
       if (!refreshToken) throw createError.BadRequest();
-      const userId = await verifyRefreshToken(refreshToken);
+      const userId = await verifyRefreshToken(refreshToken, userRole);
 
-      const accessToken = await signAccessToken(userId);
-      const refToken = await signRefreshToken(userId);
+      const accessToken = await signAccessToken(userId, userRole);
+      const refToken = await signRefreshToken(userId, userRole);
       res.send({ accessToken, refToken });
     } catch (error) {
       next(error);
@@ -72,14 +72,15 @@ module.exports = {
   logout: async (req, res, next) => {
     try {
       const { refreshToken } = req.body;
+      const userRole = JWT.decode(refreshToken).role;
       if (!refreshToken) throw createError.BadRequest();
-      const userId = await verifyRefreshToken(refreshToken);
+      const userId = await verifyRefreshToken(refreshToken, userRole);
       client.DEL(userId, (err, val) => {
         if (err) {
-          console.log(err.message);
+          console.log('error inside redis del',err.message);
           throw createError.InternalServerError();
         }
-        console.log(val);
+        console.log('redis value',val);
         res.sendStatus(204);
       });
     } catch (error) {

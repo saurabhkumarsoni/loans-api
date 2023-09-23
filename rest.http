@@ -1,6 +1,6 @@
 ###get api 
 GET http://localhost:3000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQ4NjA1ODksImV4cCI6MTcyNjQxODE4OSwiYXVkIjoiNjUwNTU3YjdkYzQ0Y2YxM2VhODQ2MzUzIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.aOMjWrSLDRr0KIl49vG8choGCgu9Wn6yiR4iM278N0U
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQURNSU4iLCJpYXQiOjE2OTU0NjkwNDAsImV4cCI6MTY5NTQ3MjY0MCwiYXVkIjoiNjUwZDg1OWQ0MTAwM2I1NzYwOGU2ZjBlIiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ.sel7PkqWHvg2zgGhEvxFDaRjQM7uLyeODEwkoWld7S4
 
 ### login Route
 POST http://localhost:3000/users/login
@@ -15,8 +15,8 @@ Content-Type: application/json
 POST http://localhost:3000/users/register
 Content-Type: application/json
 
-{   "name":"admin",
-    "email": "admin@gmail.com",
+{   "name":"saurabh",
+    "email": "saurab2hw1dddddfffddddwwQddddQ1121@gmail.com",
     "password": "saurabh",
     "confirmPassword": "saurabh",
     "photo": "https://api.slingacademy.com/public/sample-photos/1.jpeg"
@@ -27,7 +27,7 @@ POST http://localhost:3000/users/refresh-token
 Content-Type: application/json
 
 {
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQzMzE1MDksImV4cCI6MTcyNTg4OTEwOSwiYXVkIjoiNjRmYWM0ZDE0NTZjMWU4NjU3YWVhZjQxIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.CKqZAHQogbQV9yHpSDsVRTmt41MO7SYE8G6ofTyNyvI"
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQURNSU4iLCJpYXQiOjE2OTU0NzI3NTUsImV4cCI6MTcyNzAzMDM1NSwiYXVkIjoiNjUwZDg1OWQ0MTAwM2I1NzYwOGU2ZjBlIiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ.6yha9OVqbParOlOYtiMshr7Y8TeprBJ0eU5IvA0OeJo"
 }
 
 
@@ -154,7 +154,7 @@ Content-Type: application/json
 
 ### get movie list
 GET  http://localhost:3000/movie
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTUyMDU3NzYsImV4cCI6MTcyNjc2MzM3NiwiYXVkIjoiNjUwYWJlMGRjMmRmNDcyMDE0Y2NhYjMyIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.KLw2_Dd5q3oqiaa3cje1mtq4l3pTnTNqAfsJNjCb4Yc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidXNlciIsImlhdCI6MTY5NTM3MzM3NCwiZXhwIjoxNjk1Mzc2OTc0LCJhdWQiOiI2NTBkM2UxNjNhYWJkMmMzNjQ1YzNlODEiLCJpc3MiOiJwaWNrdXJwYWdlLmNvbSJ9.iT7JVr-GAghqUSqXiUt92gsKOfzbDuDJbMA4-DiSLzE
 Content-Type: application/json
 
 
@@ -193,11 +193,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQ4NDg5N
 Content-Type: application/json
 
 #### DELETE MOVIE IF HAVING ADMIN PERMISSION
-DELETE   http://localhost:3000/movie/65099bccc5d64b931b34323f
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQURNSU4iLCJpYXQiOjE2OTUzMTg5NDcsImV4cCI6MTY5NTMyMjU0NywiYXVkIjoiNjUwYzgxZjQxYTc2YzczZjRmOWU1ODRmIiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ.yHjzGEbEqohtZ1wS4MbB3bzcHdmgB4O4ot4P4_QdDcM
+DELETE   http://localhost:3000/movie/6509974d7bd667dc5040525b
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQURNSU4iLCJpYXQiOjE2OTU0Njc0MzIsImV4cCI6MTY5NTQ3MTAzMiwiYXVkIjoiNjUwZDg1OWQ0MTAwM2I1NzYwOGU2ZjBlIiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ.ZwwS5V-ZNczZuxgoj3AfKfVABbMYtHdW0dTMjTk1jos
 Content-Type: application/json
 
 ### find by id
-GET http://localhost:3000/movie/65099a72d7e74abaa1ecab15
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQ4NDg5NTUsImV4cCI6MTcyNjQwNjU1NSwiYXVkIjoiNjUwNTU3YjdkYzQ0Y2YxM2VhODQ2MzUzIiwiaXNzIjoiZ29vZ2xlLmNvbSJ9.CfQUmnvVSSQndKQWTyXIdy6XTTmY_FkGBZ5QVYfROG0
+GET http://localhost:3000/movie/6509998e76d5ef46602f7170
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidXNlciIsImlhdCI6MTY5NTM4NTYwNCwiZXhwIjoxNjk1Mzg5MjA0LCJhdWQiOiI2NTBkODc2MjYwYWY0N2NkY2M3MzQxYjQiLCJpc3MiOiJwaWNrdXJwYWdlLmNvbSJ9.aowQgcDb2daw6HQqvumOQdyzCHJyZbYHNzf2CfqkgDc
 Content-Type: application/json

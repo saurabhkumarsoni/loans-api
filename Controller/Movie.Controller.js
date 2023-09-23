@@ -65,7 +65,7 @@ module.exports = {
   
       const result = await Movie.findByIdAndDelete(id);
       if (!result) {
-        throw createError(404, "Movie does not exist.");
+        return createError(404, "Movie does not exist.");
       }
       res.send(result);
     } catch (error) {

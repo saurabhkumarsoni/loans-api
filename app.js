@@ -9,7 +9,7 @@ const client = require('./helpers/init_redis');
 const mongoose = require('mongoose');
 // require('./helpers/check_role');
 
-client.SET('foo', 'bar')
+
 
 
 const app = express();

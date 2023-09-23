@@ -1,6 +1,4 @@
-const { verifyAccessToken } = require("../helpers/jwt_helper");
 const createError = require("http-errors");
-const userRoles = require("../helpers/userRoles"); // Adjust the path accordingly
 
 const checkUserRole = (role) => {
   return async (req, res, next) => {
@@ -17,13 +15,13 @@ const checkUserRole = (role) => {
         return next(createError.Unauthorized());
       }
 
-      const payload = await verifyAccessToken(token);
+      const payload = req.payload;
       console.log("payload", payload);
       if (!payload) {
         return next(createError.Unauthorized());
       }
 
-      req.payload = payload; // Set the payload, including role
+      req.payload = payload;
       if (req.payload.role !== role) {
         return next(createError.Forbidden("Access denied"));
       }

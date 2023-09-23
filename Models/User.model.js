@@ -30,7 +30,7 @@ UserSchema.pre("save", async function (next) {
     this.confirmPassword = undefined;
     
     if (this.email === process.env.ADMIN_EMAIL.toLowerCase()) {
-      this.role = roles.admin;
+      this.role = userRoles.admin;
     }
     next();
   } catch (error) {
