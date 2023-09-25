@@ -52,6 +52,15 @@ Content-Type: application/json
 
   }
 
+### reset password
+PATCH http://localhost:3000/users/resetPassword/c2c9a7f7a350bf462e613d2bf21fd45989e25c0f8a7ec3432be09d87d5172c9e
+Content-Type: application/json
+
+{
+  "password": "password123",
+  "confirmPassword": "password123"
+}
+
 ###  PRODUCT LIST
 GET http://localhost:3000/product
 Content-Type: : application/json

@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 const Joi = require("@hapi/joi");
 const userRoles = require("../helpers/userRoles");
+const crypto = require('crypto');
 
 const UserSchema = new Schema({
   name: Joi.string().required(),
@@ -18,7 +19,10 @@ const UserSchema = new Schema({
     type: String,
     enum: [userRoles.admin, userRoles.client, userRoles.superAdmin, userRoles.user],
     default: userRoles.user,
-  }
+  },
+  passwordChangeAt: Date,
+  passwordResetToken: String,
+  passwordResetTokenExpires: Date
 });
 
 UserSchema.pre("save", async function (next) {
@@ -45,6 +49,17 @@ UserSchema.methods.isValidPassword = async function (password) {
     next(error);
   }
 };
+
+UserSchema.methods.createResetPasswordToken = async function(){
+  const resetToken = crypto.randomBytes(32).toString('hex')
+
+  this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+  this.passwordResetTokenExpires = Date.now() + 10 * 60 * 1000;
+
+  console.log('resetToken and passwordResetToken', resetToken, this.passwordResetToken)
+
+  return resetToken;
+}
 
 const User = mongoose.model("user", UserSchema);
 module.exports = User;
